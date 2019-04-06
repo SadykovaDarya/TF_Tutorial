@@ -39,9 +39,14 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "csp-webpack-plugin": "^2.0.2",
     "lodash": "^4.17.11",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.10",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-addons-update": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.0",

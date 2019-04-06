@@ -1,6 +1,10 @@
-﻿import http = require('http');
-var port = process.env.port || 1337
-http.createServer(function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello World\n');
-}).listen(port);
+﻿const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+
+app.listen(4000, () => {
+    console.log("I am listening on port 4000");
+});
+

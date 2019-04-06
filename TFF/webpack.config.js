@@ -1,6 +1,7 @@
 ﻿const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CSPWebpackPlugin = require('csp-webpack-plugin');
 const webpack = require('webpack');
 
 
@@ -17,6 +18,12 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'Development'
+        }), 
+        new CSPWebpackPlugin({
+            'object-src': '\'none\'',
+            'base-uri': '\'self\'',
+            'script-src': ['\'unsafe-inline\'', '\'self\'', '\'unsafe-eval\'', 'http://ajax.googleapis.com'],
+            'worker-src': ['\'self\'', 'blob:']
         })
     ],
     output: {

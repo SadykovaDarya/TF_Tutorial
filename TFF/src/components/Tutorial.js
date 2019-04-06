@@ -1,6 +1,9 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import Question from '../components/Question'; import QuestionCount from '../components/QuestionCount'; import AnswerOption from '../components/AnswerOption';
+import Question from '../components/Question';
+import QuestionCount from '../components/QuestionCount';
+import AnswerOption from '../components/AnswerOption';
+
 
 function Tutorial(props) {
 

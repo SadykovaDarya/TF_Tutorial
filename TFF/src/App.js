@@ -12,7 +12,7 @@ class App extends Component {
                     <h2>Welcome to TensorFlow Tutorial</h2>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
                         <ul className="navbar-nav mr-auto">
-                            <li><Link to={'/home'} className="nav-link"> Home </Link></li>
+                            <li><Link to={'/home'} className="nav-link"> Home!! </Link></li>
                             <li><Link to={'/about'} className="nav-link"> About </Link></li>
                         </ul>
                     </nav>
