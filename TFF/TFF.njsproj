@@ -36,9 +36,37 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="server.ts" />
+    <Content Include="dist\index.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\Data.xml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\style.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\icon.jpg" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dist\" />
+    <Folder Include="src\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="server.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\App.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\index.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="webpack.config.js">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
