@@ -39,6 +39,9 @@
     <Content Include="dist\index.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\App.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\Data.xml">
       <SubType>Code</SubType>
     </Content>
@@ -53,12 +56,38 @@
   <ItemGroup>
     <Folder Include="dist\" />
     <Folder Include="src\" />
+    <Folder Include="src\api\" />
+    <Folder Include="src\components\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="server.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\api\Questions.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\App.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\components\AnswerOption.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\components\About.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\components\Question.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\components\QuestionCount.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\components\Result.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\components\Tutorial.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\Home.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\index.js">
