@@ -18,13 +18,13 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'Development'
-        }), 
+        })/*, 
         new CSPWebpackPlugin({
             'object-src': '\'none\'',
             'base-uri': '\'self\'',
-            'script-src': ['\'unsafe-inline\'', '\'self\'', '\'unsafe-eval\'', 'http://ajax.googleapis.com'],
+            'script-src': ['\'unsafe-inline\'', '\'self\'', '\'unsafe-eval\'', 'http://ajax.googleapis.com', 'http://www.google.com'],
             'worker-src': ['\'self\'', 'blob:']
-        })
+        })*/
     ],
     output: {
         filename: 'bundle.js',
