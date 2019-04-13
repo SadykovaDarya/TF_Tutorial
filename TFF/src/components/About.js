@@ -1,35 +1,76 @@
 ﻿import React, { Component } from 'react';
+import api from '../api/Api';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-var nf = require('node-fetch');
+    
+
+
 
 class About extends Component {
 
-    componentDidMount() {
-        console.log(this.getTasks());
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: 'Jordan Belfort'
+        };
     }
+
+    componentDidMount() {
+
+        var _this = this;
+        fetch('/server')
+            .then(response => response.json())
+            .then(
+                function (json) {
+                    var tasks = json.recordset;
+                    var test = tasks[0].ID;
+                    _this.setState({ data: test });
+
+                    return tasks;
+                }
+            ).catch(err => { return err; });
+
+        //test = api.getTasks();
+        //this.getData();
+
+    }
+
     
+
+    getData(local) {
+        setTimeout(() => {
+            console.log('Our data is fetched');
+            var fetched_data = local.getTasks();
+            console.log("11" + fetched_data);
+            local.setState({
+                data: fetched_data
+            });
+        }, 1000);
+    }
+
+
     getTasks() {
         fetch('/server').then(
             function (u) { return u.json(); }
         ).then(
             function (json) {
-                console.log(json);
-                return json;
+                var tasks = json.recordset;
+                this.setState({ data: tasks });
+                console.log(tasks);
+                return tasks;
             }
         ).catch(err => { return err; });
     }
-    
 
 
     render() {
         return (
-            <Router>
-                <div>
-                    <h1>I am a student at HSE and I love coding in my free time!</h1>
-                </div>
-            </Router>
+            <div>
+                {this.state.data}
+            </div>
         );
     }
+
 }
 
 export default About;
+
