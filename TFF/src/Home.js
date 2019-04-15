@@ -2,11 +2,42 @@
 import update from 'react-addons-update';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Question from './components/Question';
-import Questions from './api/Questions';
+//import Questions from './api/Questions';
 import QuestionCount from './components/QuestionCount';
 import Tutorial from './components/Tutorial';
 import Result from './components/Result';
 
+
+
+var Data = [];
+var Questions = [];
+
+function getData() {
+    fetch('/server')
+        .then(response => response.json())
+        .then(
+            function (json) {
+                var tasks = json.recordset;
+                Data = tasks;
+                var x;
+
+                for (x in Data) {
+                    Questions[x] = {};
+                    Questions[x].question = Data[x].TaskText;
+                    Questions[x].topic = Data[x].TopicID;
+                    Questions[x].id = Data[x].ID;
+
+                    Questions[x].answers = [];
+                    Questions[x].answers[0] = { type: "right", content: "ngh" };
+                }
+                console.log('in fetch!');
+                console.log(Questions);
+                return tasks;
+            }
+        ).catch(err => { return err; });
+}
+
+getData();
 
 
 
