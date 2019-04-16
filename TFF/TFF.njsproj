@@ -45,6 +45,9 @@
     <Content Include="src\Data.xml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\popup.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\style.css">
       <SubType>Code</SubType>
     </Content>

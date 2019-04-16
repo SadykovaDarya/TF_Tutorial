@@ -148,9 +148,8 @@ class Home extends Component {
     handleAnswerSelected(event) {
         var currentAnswer = event.currentTarget.value;
         this.setUserAnswer(currentAnswer); 
-
+        Popup.alert(currentAnswer);
         if (this.state.questionId < Questions.length) {
-            this.setOutput(currentAnswer);
             if (currentAnswer === 'right') {
                 setTimeout(() => this.setNextQuestion(), 300);
             }
@@ -160,10 +159,9 @@ class Home extends Component {
         }
         else
         {
-            
-            this.setOutput(currentAnswer);
             if (currentAnswer === 'right') {
-                setTimeout(() => this.setResults(this.getResults()), 300);
+                //setTimeout(() => this.setResults(this.getResults()), 300);
+                setTimeout(() => this.setState({result: 'Success'}), 300);
             }
             else {
                 setTimeout(() => this.setSameQuestion(), 300);
@@ -172,31 +170,24 @@ class Home extends Component {
     }
 
 
-    setOutput(answer) {
-        
-        console.log("in new function!");
-        Popup.alert(answer);
-    }
 
+    //setResults(result) {
+    //    if (result.length === 1) {
+    //        this.setState({ result: result[0] });
+    //    } else {
+    //        this.setState({ result: 'Success!' });
+    //    }
+    //}
 
-
-    setResults(result) {
-        if (result.length === 1) {
-            this.setState({ result: result[0] });
-        } else {
-            this.setState({ result: 'Undetermined' });
-        }
-    }
-
-    getResults() {
-        console.log("in get results");
-        const answersCount = this.state.answersCount;
-        const answersCountKeys = Object.keys(answersCount);
-        const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
-        const maxAnswerCount = Math.max.apply(null, answersCountValues);
-
-        return answersCountKeys.filter((key) => answersCount[key] === maxAnswerCount);
-    }
+    //getResults() {
+        //const answersCount = this.state.answersCount;
+        //const answersCountKeys = Object.keys(answersCount);
+        //const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
+        //const maxAnswerCount = Math.max.apply(null, answersCountValues);
+         
+        //return answersCountKeys.filter((key) => answersCount[key] === maxAnswerCount);
+        //return "Success!";
+    //}
 
     renderQuiz() {
         return (

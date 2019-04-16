@@ -4,6 +4,7 @@ import Home from './Home';
 import About from './components/About';
 import Popup from 'react-popup';
 import './App.css';
+import './popup.css';
 
 
 
