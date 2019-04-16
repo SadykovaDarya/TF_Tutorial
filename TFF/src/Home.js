@@ -17,15 +17,13 @@ function getData() {
         .then(
             function (json) {
                 var Data = json.recordset;
-
                 var x = 0;
-                Questions[x] = {};
 
                 for (x in Data) {
                     var test = 0;
                     var y = 0;
-
                     var AnswerType;
+
                     if (Data[x].IsRight) {
                         AnswerType = "right";
                     } else {
@@ -38,17 +36,21 @@ function getData() {
                         }
                     }
                     if (test !== 1) {
-                        Questions[x].question = Data[x].TaskText;
-                        Questions[x].topic = Data[x].TopicID;
-                        Questions[x].id = Data[x].TaskID;
-
-                        Questions[x].answers = [];                      
-                        Questions[x].answers[0] = { type: AnswerType, content: Data[x].AnswerText };
+                        Questions.push({
+                            question: Data[x].TaskText, 
+                            topic: Data[x].TopicID, 
+                            id: Data[x].TaskID, 
+                            answers: [{
+                                type: AnswerType,
+                                content: Data[x].AnswerText
+                            }]
+                        });
+                        
 
                     } else {
                         Questions[y].answers.push({ type: AnswerType, content: Data[x].AnswerText });
                         
-                    }                  
+                    }
                 }
                 return Questions;
             }
