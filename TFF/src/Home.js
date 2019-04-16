@@ -9,37 +9,53 @@ import Result from './components/Result';
 
 
 
-var Data = [];
 var Questions = [];
 
 function getData() {
-    fetch('/server')
+    fetch('/tasks')
         .then(response => response.json())
         .then(
             function (json) {
-                var tasks = json.recordset;
-                Data = tasks;
-                var x;
+                var Data = json.recordset;
+
+                var x = 0;
+                Questions[x] = {};
 
                 for (x in Data) {
-                    Questions[x] = {};
-                    Questions[x].question = Data[x].TaskText;
-                    Questions[x].topic = Data[x].TopicID;
-                    Questions[x].id = Data[x].ID;
+                    var test = 0;
+                    var y = 0;
 
-                    Questions[x].answers = [];
-                    Questions[x].answers[0] = { type: "right", content: "ngh" };
+                    var AnswerType;
+                    if (Data[x].IsRight) {
+                        AnswerType = "right";
+                    } else {
+                        AnswerType = "wrong";
+                    }
+
+                    for (y in Questions) {
+                        if (Questions[y].id === Data[x].TaskID) {
+                            test = 1;
+                        }
+                    }
+                    if (test !== 1) {
+                        Questions[x].question = Data[x].TaskText;
+                        Questions[x].topic = Data[x].TopicID;
+                        Questions[x].id = Data[x].TaskID;
+
+                        Questions[x].answers = [];                      
+                        Questions[x].answers[0] = { type: AnswerType, content: Data[x].AnswerText };
+
+                    } else {
+                        Questions[y].answers.push({ type: AnswerType, content: Data[x].AnswerText });
+                        
+                    }                  
                 }
-                console.log('in fetch!');
-                console.log(Questions);
-                return tasks;
+                return Questions;
             }
         ).catch(err => { return err; });
 }
 
 getData();
-
-
 
 class Home extends Component {
 

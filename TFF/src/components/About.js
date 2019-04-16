@@ -1,5 +1,4 @@
 ﻿import React, { Component } from 'react';
-import api from '../api/Api';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
     
 
@@ -10,14 +9,14 @@ class About extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: 'Jordan Belfort'
+            data: 'Hi there!'
         };
     }
 
     componentDidMount() {
 
         var _this = this;
-        fetch('/server')
+        fetch('/tasks')
             .then(response => response.json())
             .then(
                 function (json) {

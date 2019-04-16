@@ -1,37 +1,4 @@
-﻿var Data = [];
-var TestQuestions = [];
-
-
-function getData() {
-    fetch('/server')
-        .then(response => response.json())
-        .then(
-        function (json) {
-            console.log("I am fetching!");
-                var tasks = json.recordset;
-                Data = tasks;
-            console.log(Data);
-                return tasks;
-            }
-        ).catch(err => { return err; });
-}
-getData();
-console.log(Data);
-
-
-console.log("!!"+TestQuestions);
-/*
-var Data = getData().then(function (result) {
-    return result;
-});
-console.log(Data);
-*/
-
-
-
-
-
-var Questions = [
+﻿var Questions = [
     {
         question: "What franchise would you rather play a game from?",
         answers: [
