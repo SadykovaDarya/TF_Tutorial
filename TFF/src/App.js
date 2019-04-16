@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import About from './components/About';
+import Popup from 'react-popup';
 import './App.css';
 
 
@@ -11,6 +12,7 @@ class App extends Component {
     render() {
         return (
             <Router>
+                <Popup />
                 <div>
                     <h2>Welcome to TensorFlow Tutorial</h2>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">

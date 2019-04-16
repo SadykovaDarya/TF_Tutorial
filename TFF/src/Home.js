@@ -1,11 +1,12 @@
 ﻿import React, { Component } from 'react';
 import update from 'react-addons-update';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Question from './components/Question';
+//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+//import Question from './components/Question';
 //import Questions from './api/Questions';
-import QuestionCount from './components/QuestionCount';
+//import QuestionCount from './components/QuestionCount';
 import Tutorial from './components/Tutorial';
 import Result from './components/Result';
+import Popup from 'react-popup';
 
 
 
@@ -80,25 +81,6 @@ class Home extends Component {
     }
 
 
-    shuffleArray(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-    };
-
 
     componentWillMount() {
         const shuffledAnswerOptions = Questions.map((question) => this.shuffleArray(question.answers));
@@ -107,6 +89,25 @@ class Home extends Component {
             answerOptions: shuffledAnswerOptions[0]
         });
     }
+
+
+    shuffleArray(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }; 
 
     setUserAnswer(answer) {
         const updatedAnswersCount = update(this.state.answersCount, {
@@ -131,15 +132,53 @@ class Home extends Component {
         });
     }
 
+    setSameQuestion() {
+        const counter = this.state.counter;
+        const questionId = this.state.questionId;
+        this.setState({
+            counter: counter,
+            questionId: questionId,
+            question: Questions[counter].question,
+            answerOptions: Questions[counter].answers,
+            answer: ''
+        });
+    }
+
 
     handleAnswerSelected(event) {
-        this.setUserAnswer(event.currentTarget.value);
+        var currentAnswer = event.currentTarget.value;
+        this.setUserAnswer(currentAnswer); 
+
         if (this.state.questionId < Questions.length) {
-            setTimeout(() => this.setNextQuestion(), 300);
-        } else {
-            setTimeout(() => this.setResults(this.getResults()), 300);
+            this.setOutput(currentAnswer);
+            if (currentAnswer === 'right') {
+                setTimeout(() => this.setNextQuestion(), 300);
+            }
+            else {
+                setTimeout(() => this.setSameQuestion(), 300);
+            }
+        }
+        else
+        {
+            
+            this.setOutput(currentAnswer);
+            if (currentAnswer === 'right') {
+                setTimeout(() => this.setResults(this.getResults()), 300);
+            }
+            else {
+                setTimeout(() => this.setSameQuestion(), 300);
+            }
         }
     }
+
+
+    setOutput(answer) {
+        
+        console.log("in new function!");
+        Popup.alert(answer);
+    }
+
+
 
     setResults(result) {
         if (result.length === 1) {
@@ -150,6 +189,7 @@ class Home extends Component {
     }
 
     getResults() {
+        console.log("in get results");
         const answersCount = this.state.answersCount;
         const answersCountKeys = Object.keys(answersCount);
         const answersCountValues = answersCountKeys.map((key) => answersCount[key]);

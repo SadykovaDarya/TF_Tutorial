@@ -28,38 +28,8 @@ class About extends Component {
                 }
             ).catch(err => { return err; });
 
-        //test = api.getTasks();
-        //this.getData();
 
     }
-
-    
-
-    getData(local) {
-        setTimeout(() => {
-            console.log('Our data is fetched');
-            var fetched_data = local.getTasks();
-            console.log("11" + fetched_data);
-            local.setState({
-                data: fetched_data
-            });
-        }, 1000);
-    }
-
-
-    getTasks() {
-        fetch('/server').then(
-            function (u) { return u.json(); }
-        ).then(
-            function (json) {
-                var tasks = json.recordset;
-                this.setState({ data: tasks });
-                console.log(tasks);
-                return tasks;
-            }
-        ).catch(err => { return err; });
-    }
-
 
     render() {
         return (
