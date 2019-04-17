@@ -13,7 +13,7 @@ import Popup from 'react-popup';
 var Questions = [];
 
 function getData() {
-    fetch('/tasks')
+    fetch('/getTasks')
         .then(response => response.json())
         .then(
             function (json) {
@@ -168,26 +168,6 @@ class Home extends Component {
             }
         }
     }
-
-
-
-    //setResults(result) {
-    //    if (result.length === 1) {
-    //        this.setState({ result: result[0] });
-    //    } else {
-    //        this.setState({ result: 'Success!' });
-    //    }
-    //}
-
-    //getResults() {
-        //const answersCount = this.state.answersCount;
-        //const answersCountKeys = Object.keys(answersCount);
-        //const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
-        //const maxAnswerCount = Math.max.apply(null, answersCountValues);
-         
-        //return answersCountKeys.filter((key) => answersCount[key] === maxAnswerCount);
-        //return "Success!";
-    //}
 
     renderQuiz() {
         return (

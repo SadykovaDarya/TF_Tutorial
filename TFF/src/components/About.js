@@ -16,7 +16,7 @@ class About extends Component {
     componentDidMount() {
 
         var _this = this;
-        fetch('/tasks')
+        fetch('/getTasks')
             .then(response => response.json())
             .then(
                 function (json) {

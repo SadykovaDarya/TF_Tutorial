@@ -87,6 +87,9 @@
     <Compile Include="src\components\Result.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\components\Topics.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\components\Tutorial.js">
       <SubType>Code</SubType>
     </Compile>

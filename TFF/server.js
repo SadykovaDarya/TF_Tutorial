@@ -29,13 +29,30 @@ app.listen(4000, () => {
 
 
 
-app.get('/tasks', async function (req, res) {
+app.get('/getTasks', async function (req, res) {
     sql.connect(connection, function (err) {
 
         if (err) console.log(err);
         var request = new sql.Request();
 
         request.query('select * from Tasks t join Answers a on t.ID = a.TaskID', function (err, recordset) {
+
+            if (err) console.log(err);
+            // send records as a response
+            res.send(recordset);
+            sql.close();
+        });
+    });
+});
+
+
+app.get('/getTopics', async function (req, res) {
+    sql.connect(connection, function (err) {
+
+        if (err) console.log(err);
+        var request = new sql.Request();
+
+        request.query('select * from Topics', function (err, recordset) {
 
             if (err) console.log(err);
             // send records as a response
