@@ -1,19 +1,15 @@
 ﻿import React, { Component } from 'react';
 import update from 'react-addons-update';
-//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-//import Question from './components/Question';
-//import Questions from './api/Questions';
-//import QuestionCount from './components/QuestionCount';
 import Tutorial from './components/Tutorial';
 import Result from './components/Result';
 import Popup from 'react-popup';
 
 
-
-var Questions = [];
+var AllQuestions = [];
 
 function getData() {
-    fetch('/getTasks')
+    console.log("in get data!");
+    fetch('/getTasks?topic=' + '1')
         .then(response => response.json())
         .then(
             function (json) {
@@ -31,41 +27,44 @@ function getData() {
                         AnswerType = "wrong";
                     }
 
-                    for (y in Questions) {
-                        if (Questions[y].id === Data[x].TaskID) {
+                    for (y in AllQuestions) {
+                        if (AllQuestions[y].id === Data[x].TaskID) {
                             test = 1;
                         }
                     }
                     if (test !== 1) {
-                        Questions.push({
-                            question: Data[x].TaskText, 
-                            topic: Data[x].TopicID, 
-                            id: Data[x].TaskID, 
+                        AllQuestions.push({
+                            question: Data[x].TaskText,
+                            topic: Data[x].TopicID,
+                            id: Data[x].TaskID,
                             answers: [{
                                 type: AnswerType,
                                 content: Data[x].AnswerText
                             }]
                         });
-                        
+
 
                     } else {
-                        Questions[y].answers.push({ type: AnswerType, content: Data[x].AnswerText });
-                        
+                        AllQuestions[y].answers.push({ type: AnswerType, content: Data[x].AnswerText });
+
                     }
                 }
-                return Questions;
+                console.log(AllQuestions);
+                return AllQuestions;
             }
         ).catch(err => { return err; });
 }
 
 getData();
+var Questions = [];
 
 class Home extends Component {
-
+    
     constructor(props) {
         super(props);
-
+        //this.getData = this.Data();
         this.state = {
+            topic: this.props.location.state.topic,
             counter: 0,
             questionId: 1,
             question: '',
@@ -81,14 +80,35 @@ class Home extends Component {
     }
 
 
+    
 
     componentWillMount() {
+        this.getQuestionsforTopic();
+
         const shuffledAnswerOptions = Questions.map((question) => this.shuffleArray(question.answers));
         this.setState({
             question: Questions[0].question,
             answerOptions: shuffledAnswerOptions[0]
         });
     }
+
+    getQuestionsforTopic() {
+        Questions = [];
+        var current_topic, i;
+        current_topic = this.state.topic;
+        console.log("in get q", current_topic);
+        for (i in AllQuestions) {
+            if (AllQuestions[i].topic === current_topic) {
+                Questions.push(AllQuestions[i]);
+            }
+        }
+        console.log(Questions);
+    }
+
+    //Data() {
+    //    console.log("in data");
+    //    this.getData();
+    //}
 
 
     shuffleArray(array) {
@@ -149,19 +169,24 @@ class Home extends Component {
         var currentAnswer = event.currentTarget.value;
         this.setUserAnswer(currentAnswer); 
         Popup.alert(currentAnswer);
+        setTimeout(() => Popup.close(), 400);
         if (this.state.questionId < Questions.length) {
             if (currentAnswer === 'right') {
-                setTimeout(() => this.setNextQuestion(), 300);
+                setTimeout(() => this.setNextQuestion(), 400);
             }
             else {
-                setTimeout(() => this.setSameQuestion(), 300);
+                setTimeout(() => this.setSameQuestion(), 400);
             }
         }
         else
         {
             if (currentAnswer === 'right') {
-                //setTimeout(() => this.setResults(this.getResults()), 300);
-                setTimeout(() => this.setState({result: 'Success'}), 300);
+                setTimeout(() => this.setState({ result: 'Success' }), 300);
+                //gonna need another if later to check if there are topics at all
+
+                this.setState({ topic: this.state.topic + 1 }, function () {
+                    this.getQuestionsforTopic();
+                });  
             }
             else {
                 setTimeout(() => this.setSameQuestion(), 300);

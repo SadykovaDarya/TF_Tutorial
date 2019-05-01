@@ -29,13 +29,18 @@ app.listen(4000, () => {
 
 
 
-app.get('/getTasks', async function (req, res) {
+app.get('/getTasks', async function (req, res, next) {
     sql.connect(connection, function (err) {
+
+        const topic = req.query.topic;
+        console.log(topic);
 
         if (err) console.log(err);
         var request = new sql.Request();
 
-        request.query('select * from Tasks t join Answers a on t.ID = a.TaskID', function (err, recordset) {
+        q = "select * from Tasks t join Answers a on t.ID = a.TaskID where TopicID=" + topic;
+
+        request.query(q, function (err, recordset) {
 
             if (err) console.log(err);
             // send records as a response

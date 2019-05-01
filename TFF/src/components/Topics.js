@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Select from 'react-select';
+import { Redirect } from 'react-router-dom';
 
 class Topics extends Component {
 
@@ -10,13 +9,12 @@ class Topics extends Component {
 
         this.state = {
             allTopics: [], 
-            chosenTopic: 0
+            chosenTopic: -1
         };
     }
 
 
     componentDidMount() {
-
         var _this = this;
 
         fetch('/getTopics')
@@ -44,12 +42,24 @@ class Topics extends Component {
         ).catch(err => { return err; });
     }
 
+
+
     handleChange(text, id) {
-        console.log(text, id);
+        this.setState({ chosenTopic: id });
     }
 
 
     render() {
+        if (this.state.chosenTopic >=0) {
+            return (
+                <Redirect to={
+                {
+                pathname: '/home',
+                state: { topic: this.state.chosenTopic }
+                }
+                } />
+            );
+        }
         return (
             <div className="app">
                 <div className="container">
