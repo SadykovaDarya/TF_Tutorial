@@ -8,8 +8,9 @@ import Popup from 'react-popup';
 var AllQuestions = [];
 
 function getData() {
-    console.log("in get data!");
-    fetch('/getTasks?topic=' + '1')
+    //console.log("in get data!");
+    //fetch('/getTasks?topic=' + '1')
+    fetch('/getTasks')
         .then(response => response.json())
         .then(
             function (json) {
@@ -49,7 +50,7 @@ function getData() {
 
                     }
                 }
-                console.log(AllQuestions);
+                //console.log(AllQuestions);
                 return AllQuestions;
             }
         ).catch(err => { return err; });
@@ -184,9 +185,15 @@ class Home extends Component {
                 setTimeout(() => this.setState({ result: 'Success' }), 300);
                 //gonna need another if later to check if there are topics at all
 
-                this.setState({ topic: this.state.topic + 1 }, function () {
-                    this.getQuestionsforTopic();
-                });  
+                this.setState({
+                    topic: this.state.topic + 1//,
+                    //counter: -1,
+                    //questionId: 0
+                },
+                    function () {
+                        this.getQuestionsforTopic();
+                        //setTimeout(() => this.setNextQuestion(), 400);
+                    });               
             }
             else {
                 setTimeout(() => this.setSameQuestion(), 300);

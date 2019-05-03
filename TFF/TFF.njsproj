@@ -78,6 +78,9 @@
     <Compile Include="src\components\About.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\components\Materials.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\components\Question.js">
       <SubType>Code</SubType>
     </Compile>
@@ -91,6 +94,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\components\Tutorial.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\DB.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\Home.js">
