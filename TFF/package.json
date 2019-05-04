@@ -2,6 +2,7 @@
   "name": "tff",
   "version": "0.0.0",
   "description": "TFF",
+  "homepage": "https://sadykovadarya.github.io/TF_Tutorial/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open",
