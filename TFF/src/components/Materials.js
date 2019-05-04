@@ -1,8 +1,8 @@
 ﻿import React, { Component } from 'react';
 import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
-import { Redirect } from 'react-router-dom';
 import '../style.css';
+import '../material.css';
 
 
 
@@ -10,12 +10,12 @@ class Materials extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log(this.props.location);
+        this.getData = this.getMaterials(1);
         this.state = {
             allTopics: [],
-            chosenMaterials:[],
-            chosenTopic: -1, 
-            redirect: false
+            chosenMaterials: [],
+            chosenTopic: typeof this.props.location.state !== 'undefined' ? this.props.location.state.chosenTopic : -1
         };
     }
 
@@ -74,7 +74,6 @@ class Materials extends Component {
                     _this.setState({
                         chosenMaterials: mappedData
                     });
-                    console.log("in fetch!", mappedData);
                     return data;
                 }
             ).catch(err => { return err; });
@@ -91,7 +90,6 @@ class Materials extends Component {
     
 
     renderRedirect() {
-        console.log("in render redirect!");
         this.props.history.push(
             {
                 pathname: '/home',
@@ -109,7 +107,7 @@ class Materials extends Component {
                         <Select options={this.state.allTopics} onChange={opt => this.handleChangeTopic(opt.label, opt.value)} />
                     </div>
 
-                    <div>
+                    <div className="material">
                         {this.state.chosenMaterials[0].materialText}
                     </div>
 

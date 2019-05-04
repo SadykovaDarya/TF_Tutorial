@@ -3,6 +3,7 @@ import update from 'react-addons-update';
 import Tutorial from './components/Tutorial';
 import Result from './components/Result';
 import Popup from 'react-popup';
+import Button from 'react-bootstrap/Button';
 
 
 var AllQuestions = [];
@@ -50,7 +51,6 @@ function getData() {
 
                     }
                 }
-                //console.log(AllQuestions);
                 return AllQuestions;
             }
         ).catch(err => { return err; });
@@ -97,13 +97,11 @@ class Home extends Component {
         Questions = [];
         var current_topic, i;
         current_topic = this.state.topic;
-        console.log("in get q", current_topic);
         for (i in AllQuestions) {
             if (AllQuestions[i].topic === current_topic) {
                 Questions.push(AllQuestions[i]);
             }
         }
-        console.log(Questions);
     }
 
     //Data() {
@@ -187,18 +185,24 @@ class Home extends Component {
 
                 this.setState({
                     topic: this.state.topic + 1//,
-                    //counter: -1,
-                    //questionId: 0
                 },
                     function () {
                         this.getQuestionsforTopic();
-                        //setTimeout(() => this.setNextQuestion(), 400);
                     });               
             }
             else {
                 setTimeout(() => this.setSameQuestion(), 300);
             }
         }
+    }
+
+    renderRedirect() {
+        this.props.history.push(
+            {
+                pathname: '/materials',
+                state: { chosenTopic: this.state.topic}
+            }
+        );
     }
 
     renderQuiz() {
@@ -215,7 +219,13 @@ class Home extends Component {
     }
 
     renderResult() {
-        return <Result quizResult={this.state.result} />;
+        return (
+            <div>
+                <Result quizResult={this.state.result} />
+                <Button value="Go!" onClick={this.renderRedirect.bind(this)} />
+            </div>
+        );
+
     }
 
     render() {
