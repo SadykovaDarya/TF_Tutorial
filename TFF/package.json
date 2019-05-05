@@ -60,6 +60,6 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-select": "^2.4.3",
-    "reactstrap": "^8.0.0"
+    "react-tabs": "^3.0.0"
   }
 }

@@ -48,6 +48,7 @@
     <Content Include="src\popup.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\react-tabs.css" />
     <Content Include="src\style.css">
       <SubType>Code</SubType>
     </Content>

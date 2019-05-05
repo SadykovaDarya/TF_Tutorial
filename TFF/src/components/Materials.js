@@ -1,7 +1,12 @@
 ﻿import React, { Component } from 'react';
 import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
+//import Tabs from 'react-bootstrap/Tabs';
+//import Tab from 'react-bootstrap/Tab';
+import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import '../style.css';
+import '../react-tabs.css';
+
 
 
 class Materials extends Component {
@@ -12,7 +17,8 @@ class Materials extends Component {
             allTopics: [],
             chosenMaterials: [],
             chosenTopic: -1, 
-            topicName: ""
+            topicName: "", 
+            subtopicNames: []
         };
     }
 
@@ -56,7 +62,7 @@ class Materials extends Component {
                 function (json) {
                     var data = json.recordset;
 
-                    var x;
+                    var x=0;
                     var mappedData = [];
 
                     for (x in data) {
@@ -65,10 +71,12 @@ class Materials extends Component {
                             topicID: data[x].TopicID,
                             materialText: data[x].MaterialText,
                             subtopicNumber: data[x].SubtopicNumber, 
+                            subtopicName: data[x].SubtopicName,
                             orderNumber: data[x].OrderNumber
                         });
                     }
 
+                    
                     mappedData.sort(function (material1, material2) {
                         // Sort by subtopicNumber
                         // If the first item has a higher number, move it down
@@ -84,23 +92,49 @@ class Materials extends Component {
 
                     });
 
-
-
-
-
-
                     _this.setState({
                         chosenMaterials: mappedData
-                    });
+                    }, function () {
+                        _this.createTabStructure();
+                        });
+
                     return data;
                 }
-            ).catch(err => { return err; });
+        ).catch(err => { return err; });
+        
     }
 
+    createTabStructure() {
+        var Materials = this.state.chosenMaterials;
+        var subtopicNames = [];
+        var i = 0;
+        for (i in Materials) {
+            var name = Materials[i].subtopicName;
+            var text = Materials[i].materialText;
+            var index = subtopicNames.map(function (e) { return e.subtopicName; }).indexOf(name);
+
+            if (index < 0) {
+                subtopicNames.push({
+                    subtopicName: name,
+                    subtopicQty: 1, 
+                    subtopicText: text
+                });
+            } else {
+                subtopicNames[index].subtopicQty = subtopicNames[index].subtopicQty + 1;
+                subtopicNames[index].subtopicText = subtopicNames[index].subtopicText + '\n' + '\n' + text;
+            }
+        }
+        console.log(subtopicNames);
+        this.setState({ subtopicNames: subtopicNames });
+    }
+    
 
 
     handleChangeTopic(text, id) {
+        console.log("in handle change!");
         this.getMaterials(id);
+        
+        
         this.setState({
             chosenTopic: id, 
             topicName: text
@@ -121,6 +155,11 @@ class Materials extends Component {
         );
     }
 
+    handleSelect() {
+        this.setState({ selectedIndex: index });
+    }
+
+
 
     render() {
         if (this.state.chosenTopic >= 0) {
@@ -130,21 +169,32 @@ class Materials extends Component {
                         <Select options={this.state.allTopics} placeholder={"Select topic..."} onChange={opt => this.handleChangeTopic(opt.label, opt.value)} />
                     </div>
 
-                    <div className="container">
-                        {
-                            this.state.chosenMaterials.map(function (d, idx) {
-                                return (
-                                    <div className="material">
-                                        <li key={idx}>{d.materialText}</li>
-                                    </div>
-                                );
-                            })
-                        }
-                    </div>
+                
+                        <Tabs>
+                            <TabList>
+                                {
+                                    this.state.subtopicNames.map(function (d, idx) {
+                                        return (
+                                            <Tab key={idx}> {d.subtopicName}</Tab>
+                                        );
+                                    })
+                                }
+                            </TabList>
 
-                    <div>
-                        <Button value="Go!" onClick={this.renderRedirect.bind(this)}> Go to Quiz! </Button>
-                    </div>
+                            {
+                                this.state.subtopicNames.map(function (d, idx) {
+                                    return (
+                                        <TabPanel key={idx}> {d.subtopicText}</TabPanel>
+                                    );
+                                })
+                            }
+                            
+                        </Tabs>
+                
+
+                <div>
+                    <Button value="Go!" onClick={this.renderRedirect.bind(this)}> Go to Quiz! </Button>
+                </div>
 
                 </div>
             );
