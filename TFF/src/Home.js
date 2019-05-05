@@ -63,9 +63,10 @@ class Home extends Component {
     
     constructor(props) {
         super(props);
-        //this.getData = this.Data();
+
         this.state = {
             topic: this.props.location.state.topic,
+            topicName: this.props.location.state.topicName, 
             counter: 0,
             questionId: 1,
             question: '',
@@ -104,11 +105,6 @@ class Home extends Component {
         }
     }
 
-    //Data() {
-    //    console.log("in data");
-    //    this.getData();
-    //}
-
 
     shuffleArray(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
@@ -126,7 +122,7 @@ class Home extends Component {
         }
 
         return array;
-    }; 
+    } 
 
     setUserAnswer(answer) {
         const updatedAnswersCount = update(this.state.answersCount, {
@@ -180,15 +176,16 @@ class Home extends Component {
         else
         {
             if (currentAnswer === 'right') {
-                setTimeout(() => this.setState({ result: 'Success' }), 300);
+                setTimeout(() => this.setState({ result: 'You successfully passed the ' +  this.state.topicName + ' topic!'}), 300);
+                //maybe: make transition to the materials from topics+1
                 //gonna need another if later to check if there are topics at all
 
-                this.setState({
-                    topic: this.state.topic + 1//,
-                },
-                    function () {
-                        this.getQuestionsforTopic();
-                    });               
+            //    this.setState({
+            //        topic: this.state.topic + 1
+            //    },
+            //        function () {
+            //            this.getQuestionsforTopic();
+            //        });               
             }
             else {
                 setTimeout(() => this.setSameQuestion(), 300);
@@ -199,8 +196,7 @@ class Home extends Component {
     renderRedirect() {
         this.props.history.push(
             {
-                pathname: '/materials',
-                state: { chosenTopic: this.state.topic}
+                pathname: '/materials'
             }
         );
     }

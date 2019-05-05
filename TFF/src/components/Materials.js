@@ -10,12 +10,11 @@ class Materials extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.location);
-        this.getData = this.getMaterials(1);
         this.state = {
             allTopics: [],
             chosenMaterials: [],
-            chosenTopic: typeof this.props.location.state !== 'undefined' ? this.props.location.state.chosenTopic : -1
+            chosenTopic: -1, 
+            topicName: ""
         };
     }
 
@@ -51,6 +50,7 @@ class Materials extends Component {
     }
 
     getMaterials(topic) {
+        console.log("in get materials!");
         var _this = this;
 
         fetch('/getMaterials?topic=' + topic)
@@ -84,7 +84,8 @@ class Materials extends Component {
     handleChangeTopic(text, id) {
         this.getMaterials(id);
         this.setState({
-            chosenTopic: id
+            chosenTopic: id, 
+            topicName: text
         });
     }
     
@@ -93,7 +94,10 @@ class Materials extends Component {
         this.props.history.push(
             {
                 pathname: '/home',
-                state: { topic: this.state.chosenTopic }
+                state: {
+                    topic: this.state.chosenTopic,
+                    topicName: this.state.topicName
+                }
             }
         );
     }

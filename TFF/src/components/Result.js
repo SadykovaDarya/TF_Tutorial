@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function Result(props) {
     return (
         <div className="result">
-            <strong>{props.quizResult}</strong>!
+            <strong>{props.quizResult}</strong>
       </div>
     );
 }

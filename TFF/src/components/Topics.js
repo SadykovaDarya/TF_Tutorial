@@ -9,7 +9,8 @@ class Topics extends Component {
 
         this.state = {
             allTopics: [], 
-            chosenTopic: -1
+            chosenTopic: -1, 
+            topicName: ""
         };
     }
 
@@ -45,7 +46,10 @@ class Topics extends Component {
 
 
     handleChange(text, id) {
-        this.setState({ chosenTopic: id });
+        this.setState({
+            chosenTopic: id,
+            topicName: text
+        });
     }
 
 
@@ -55,7 +59,10 @@ class Topics extends Component {
                 <Redirect to={
                 {
                 pathname: '/home',
-                state: { topic: this.state.chosenTopic }
+                        state: {
+                            topic: this.state.chosenTopic,
+                            topicName: this.state.topicName
+                        }
                 }
                 } />
             );
