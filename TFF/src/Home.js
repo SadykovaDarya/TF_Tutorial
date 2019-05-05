@@ -9,8 +9,6 @@ import Button from 'react-bootstrap/Button';
 var AllQuestions = [];
 
 function getData() {
-    //console.log("in get data!");
-    //fetch('/getTasks?topic=' + '1')
     fetch('/getTasks')
         .then(response => response.json())
         .then(
@@ -176,7 +174,7 @@ class Home extends Component {
         else
         {
             if (currentAnswer === 'right') {
-                setTimeout(() => this.setState({ result: 'You successfully passed the ' +  this.state.topicName + ' topic!'}), 300);
+                setTimeout(() => this.setState({ result: 'You successfully passed the "' +  this.state.topicName + '" topic!'}), 300);
                 //maybe: make transition to the materials from topics+1
                 //gonna need another if later to check if there are topics at all
 
@@ -218,7 +216,7 @@ class Home extends Component {
         return (
             <div>
                 <Result quizResult={this.state.result} />
-                <Button value="Go!" onClick={this.renderRedirect.bind(this)} />
+                <Button value="Go!" onClick={this.renderRedirect.bind(this)}> Go back to materials </Button>
             </div>
         );
 
@@ -227,9 +225,6 @@ class Home extends Component {
     render() {
         return (
             <div className="Home">
-                <div className="App-header">
-                    <h2>TF Tutorial</h2>
-                </div>
                 {this.state.result ? this.renderResult() : this.renderQuiz()}
             </div>
         );

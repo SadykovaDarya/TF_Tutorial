@@ -1,7 +1,5 @@
 ﻿import _ from 'lodash';
 import './style.css';
-import Icon from './icon.jpg';
-import Data from './data.xml';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';

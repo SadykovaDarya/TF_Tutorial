@@ -2,8 +2,6 @@
 import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import '../style.css';
-import '../material.css';
-
 
 
 class Materials extends Component {
@@ -50,7 +48,6 @@ class Materials extends Component {
     }
 
     getMaterials(topic) {
-        console.log("in get materials!");
         var _this = this;
 
         fetch('/getMaterials?topic=' + topic)
@@ -67,9 +64,30 @@ class Materials extends Component {
                             materialID: data[x].ID,
                             topicID: data[x].TopicID,
                             materialText: data[x].MaterialText,
+                            subtopicNumber: data[x].SubtopicNumber, 
                             orderNumber: data[x].OrderNumber
                         });
                     }
+
+                    mappedData.sort(function (material1, material2) {
+                        // Sort by subtopicNumber
+                        // If the first item has a higher number, move it down
+                        // If the first item has a lower number, move it up
+                        if (material1.subtopicNumber > material2.subtopicNumber) return 1;
+                        if (material1.subtopicNumber < material2.subtopicNumber) return -1;
+
+                        // If the subtopicNumber is the same between both items, sort by orderNumber
+                        // If the first item has bigger orderNumber, move it up
+                        // Otherwise move it down
+                        if (material1.OrderNumber > material2.OrderNumber) return 1;
+                        if (material1.OrderNumber < material2.OrderNumber) return -1;
+
+                    });
+
+
+
+
+
 
                     _this.setState({
                         chosenMaterials: mappedData
@@ -87,6 +105,7 @@ class Materials extends Component {
             chosenTopic: id, 
             topicName: text
         });
+
     }
     
 
@@ -108,15 +127,23 @@ class Materials extends Component {
             return (
                 <div className="app">
                     <div className="container">
-                        <Select options={this.state.allTopics} onChange={opt => this.handleChangeTopic(opt.label, opt.value)} />
+                        <Select options={this.state.allTopics} placeholder={"Select topic..."} onChange={opt => this.handleChangeTopic(opt.label, opt.value)} />
                     </div>
 
-                    <div className="material">
-                        {this.state.chosenMaterials[0].materialText}
+                    <div className="container">
+                        {
+                            this.state.chosenMaterials.map(function (d, idx) {
+                                return (
+                                    <div className="material">
+                                        <li key={idx}>{d.materialText}</li>
+                                    </div>
+                                );
+                            })
+                        }
                     </div>
 
                     <div>
-                        <Button value="Go!" onClick={this.renderRedirect.bind(this)} />
+                        <Button value="Go!" onClick={this.renderRedirect.bind(this)}> Go to Quiz! </Button>
                     </div>
 
                 </div>
@@ -126,7 +153,7 @@ class Materials extends Component {
         return (
             <div className="app">
                 <div className="container">
-                    <Select options={this.state.allTopics} onChange={opt => this.handleChangeTopic(opt.label, opt.value)} />
+                    <Select options={this.state.allTopics} placeholder={"Select topic..."} onChange={opt => this.handleChangeTopic(opt.label, opt.value)} />
                 </div>
             </div>
         );

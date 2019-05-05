@@ -70,7 +70,7 @@ class Topics extends Component {
         return (
             <div className="app">
                 <div className="container">
-                    <Select options={this.state.allTopics} onChange={opt => this.handleChange(opt.label, opt.value)} />
+                    <Select options={this.state.allTopics} placeholder={"Select topic..."} onChange={opt => this.handleChange(opt.label, opt.value)} />
             </div>
         </div>
 )}

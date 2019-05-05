@@ -45,16 +45,12 @@
     <Content Include="src\Data.xml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\Material.css">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="src\popup.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\style.css">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\icon.jpg" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -67,9 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="server.js">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="src\api\Questions.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\App.js">
