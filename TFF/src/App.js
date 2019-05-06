@@ -15,6 +15,7 @@ class App extends Component {
     render() {
         return (
             <Router>
+                <Popup />
                 <div className="App-header">
                     <h2>TF Tutorial</h2>
                 </div>
